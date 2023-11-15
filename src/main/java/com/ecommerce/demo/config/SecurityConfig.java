@@ -1,6 +1,7 @@
 package com.ecommerce.demo.config;
 
-import java.util.Arrays;
+import java.util.Arrays;//esto es para importar
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
