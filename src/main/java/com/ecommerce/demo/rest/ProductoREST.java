@@ -35,6 +35,7 @@ public class ProductoREST {
 		Producto temporal = productoService.create(producto);
 		
 		try {
+			// Devuelve una respuesta con estado 201 (CREATED) y la URI del recurso creado
 			return ResponseEntity.created(new URI("/api/producto"+temporal.getId())).body(temporal);
 			
 		}catch (Exception e) {
