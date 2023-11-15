@@ -1,0 +1,9 @@
+{
+    "id": 2,
+    "codigoEan": 1001,
+    "nombreDelProducto": "paila",
+    "descripcionDelProducto": "es un producto natural y colombiano",
+    "marcaArtesania": "Colombia",
+    "unidadesDisponibles": 50,
+    "imagenProducto": "https://bogota.gov.co/sites/default/files/2019-07/artesanias-bogota-1.jpg"
+}
