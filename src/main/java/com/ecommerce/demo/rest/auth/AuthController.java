@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import lombok.extern.slf4j.Slf4j;
 
 
+// Controlador REST para operaciones de autenticación y registro de usuarios
 @RestController
 @RequestMapping("/api/auth")
 @Slf4j
