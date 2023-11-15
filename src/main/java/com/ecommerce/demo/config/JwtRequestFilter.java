@@ -45,6 +45,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     // TODO Como funciona lo de lo roles
     // TODO why entity user no implement more mehtoods on userdeatils ?
+    // Verifica si el token JWT está presente y si el contexto de seguridad no tiene una autenticación establecida
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
