@@ -48,6 +48,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     // Verifica si el token JWT está presente y si el contexto de seguridad no tiene una autenticación establecida
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
+
+      // Obtiene los detalles del usuario a partir del servicio de detalles de usuario (UserDetailsService)
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
       if (jwtUtil.validateToken(jwt)) {
