@@ -39,6 +39,7 @@ public class ProductoREST {
 			return ResponseEntity.created(new URI("/api/producto"+temporal.getId())).body(temporal);
 			
 		}catch (Exception e) {
+			// Si hay una excepción, devuelve una respuesta con estado 400 (BAD_REQUEST)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 	}
