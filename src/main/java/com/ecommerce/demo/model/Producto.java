@@ -18,6 +18,9 @@ public class Producto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+
+	
+	// Atributos que describen las características del producto
 	private Long id;
 	private Long codigoEan;
 	private String nombreDelProducto;
