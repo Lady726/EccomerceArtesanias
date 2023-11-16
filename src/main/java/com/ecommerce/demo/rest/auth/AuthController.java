@@ -37,6 +37,7 @@ public class AuthController {
 
     var response = loginUserService.doLogin(loginUserDto);
 
+    // Creación de un objeto DTO de respuesta para el token JWT y el mensaje
     JWTResponseApiDto responseJWT = new JWTResponseApiDto();
 
     if (response.getStatus() == HttpStatus.CREATED) {
