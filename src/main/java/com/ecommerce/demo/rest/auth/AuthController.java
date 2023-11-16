@@ -57,6 +57,7 @@ public class AuthController {
   @PostMapping("/register")
   public ResponseEntity<?> registerUser(@RequestBody UserRegisterDto userRegisterDto) {
 
+    // Registro de información utilizando el logger
     log.info("Register with JWT");
 
     var response = serviceRegister.createUser(userRegisterDto);
