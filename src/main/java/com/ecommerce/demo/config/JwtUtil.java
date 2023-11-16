@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+// Clase JwtUtil utilizada para generar, validar y manejar tokens JWT en el sistema
 @Component
 public class JwtUtil {
 
