@@ -62,6 +62,7 @@ public class AuthController {
 
     var response = serviceRegister.createUser(userRegisterDto);
 
+    // Devolución de una respuesta con los datos de respuesta y el estado HTTP correspondiente
     return new ResponseEntity<>(response, response.getStatus());
 
   }

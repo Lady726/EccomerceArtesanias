@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// Clase que representa un DTO (Data Transfer Object) para las respuestas relacionadas con el token JWT
 @Data
 @Getter
 @Setter
