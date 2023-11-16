@@ -14,6 +14,7 @@ public class JwtUtil {
   // Clave secreta utilizada para firmar los tokens JWT
   private String secret = "secretKey";
 
+    // Método para generar un token JWT con el nombre de usuario proporcionado
   public String generateToken(String username) {
     return Jwts.builder()
         .setSubject(username)
@@ -23,6 +24,7 @@ public class JwtUtil {
         .compact();
   }
 
+  // Método para validar si un token JWT es válido
   public boolean validateToken(String token) {
     try {
       Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
