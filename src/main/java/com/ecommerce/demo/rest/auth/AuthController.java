@@ -40,6 +40,7 @@ public class AuthController {
     // Creación de un objeto DTO de respuesta para el token JWT y el mensaje
     JWTResponseApiDto responseJWT = new JWTResponseApiDto();
 
+    // Comprobación del estado de la respuesta y configuración de los datos de respuesta
     if (response.getStatus() == HttpStatus.CREATED) {
       responseJWT.setMessage("token");
       responseJWT.setToken(response.getData().get(0).toString());
