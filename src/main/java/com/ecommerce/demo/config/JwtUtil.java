@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 
 // Clase JwtUtil utilizada para generar, validar y manejar tokens JWT en el sistema
 @Component
+// Anotación de Spring que marca esta clase como un componente para su escaneo automático
 public class JwtUtil {
 
+  // Clave secreta utilizada para firmar los tokens JWT
   private String secret = "secretKey";
 
   public String generateToken(String username) {
