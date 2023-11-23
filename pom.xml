@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-	<!--junit v5-->
+	<!--junit v5 agregarlo-->
 
 
 	<dependencies>
@@ -45,6 +45,7 @@
     <version>1.6.2</version>
 </dependency>
 	<!-- api  -->
+	
 <dependency>
     <groupId>org.springdoc</groupId>
     <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
