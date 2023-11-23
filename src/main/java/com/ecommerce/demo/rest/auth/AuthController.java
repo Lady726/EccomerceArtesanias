@@ -1,5 +1,7 @@
 package com.ecommerce.demo.rest.auth;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,26 +16,55 @@ import com.ecommerce.demo.service.auth.UserRegisterDto;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
-import lombok.extern.slf4j.Slf4j;
+
+import com.ecommerce.demo.rest.auth.*; // Importa tu servicio de correo
 
 
 // Controlador REST para operaciones de autenticación y registro de usuarios
 @RestController
 @RequestMapping("/api/auth")
-@Slf4j
 public class AuthController {
 
-  @Autowired
+    @Autowired
+    private EmailService emailService; // Inyecta el servicio de correo
+
+    @Autowired
   RegisterUserService serviceRegister;
 
   @Autowired
   LoginUserService loginUserService;
 
 
+
+  @PostMapping("/register")
+  public ResponseEntity<?> registerUser(@RequestBody UserRegisterDto userRegisterDto) {
+
+  
+      var response = serviceRegister.createUser(userRegisterDto);
+  
+      if (response.getStatus() == HttpStatus.CREATED) {
+          // Envío de correo electrónico al registrar un nuevo usuario
+          String destinatario = userRegisterDto.getEmail(); // Obtén el correo electrónico del usuario registrado
+          String asunto = "Registro exitoso";
+          String cuerpo = "¡Hola " + userRegisterDto.getName() + "! Has sido registrado exitosamente.";
+  
+          try {
+            emailService.enviarCorreo(destinatario, asunto, cuerpo);
+        } catch (MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+      }
+  
+      return new ResponseEntity<>(response, response.getStatus());
+  }
+  
+
+
+
+
   @PostMapping("/login")
   public ResponseEntity<?> loginUser(@RequestBody LoginUserDto loginUserDto) {
-
-    log.info("Login with JWT");
 
     var response = loginUserService.doLogin(loginUserDto);
 
@@ -54,16 +85,5 @@ public class AuthController {
   }
 
 
-  @PostMapping("/register")
-  public ResponseEntity<?> registerUser(@RequestBody UserRegisterDto userRegisterDto) {
 
-    // Registro de información utilizando el logger
-    log.info("Register with JWT");
-
-    var response = serviceRegister.createUser(userRegisterDto);
-
-    // Devolución de una respuesta con los datos de respuesta y el estado HTTP correspondiente
-    return new ResponseEntity<>(response, response.getStatus());
-
-  }
 }
