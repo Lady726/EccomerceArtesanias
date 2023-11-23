@@ -13,7 +13,7 @@ import io.swagger.v3.oas.models.info.License;
 public class EcommerceJpaApplication {
 
 	public static void main(String[] args) {SpringApplication.run(EcommerceJpaApplication.class, args);}
-
+	// se añade el OpenApi
 	@Bean
 	public OpenAPI customOpenAPI(){
 		return new OpenAPI()
