@@ -11,6 +11,7 @@ public class EmailService {
 
     public void enviarCorreo(String destinatario, String asunto, String mensaje) throws MessagingException {
         // Configuración de las propiedades para la conexión SMTP con Gmail
+
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -29,6 +30,7 @@ public class EmailService {
         });
 
         // Se crea el mensaje de correo
+        
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(usuario));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
