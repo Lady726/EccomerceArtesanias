@@ -37,7 +37,7 @@ public class ProductoREST {
 	 @Operation(summary = "post product ")
 	@ApiResponses(value = { 
   		@ApiResponse(responseCode = "200", description = "Found the book", 
-		content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class)) }),
+		content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Producto.class)) }),
   		@ApiResponse(responseCode = "400", description = "Invalid id supplied", 
 		content = @Content), 
   		@ApiResponse(responseCode = "404", description = "Book not found",
@@ -61,7 +61,7 @@ public class ProductoREST {
 	@ApiResponses(value = { 
   		@ApiResponse(responseCode = "200", description = "Found the book", 
 		content = { @Content(mediaType = "application/json",
-		 schema = @Schema(implementation = Book.class)) }),
+		 schema = @Schema(implementation = Producto.class)) }),
   		@ApiResponse(responseCode = "400", description = "Invalid id supplied",
 		 content = @Content), 
   		@ApiResponse(responseCode = "404", description = "Book not found", 
@@ -74,7 +74,7 @@ public class ProductoREST {
 	
 	@Operation(summary = "delete product")
 	@ApiResponses(value = { 
-  		@ApiResponse(responseCode = "200", description = "Found the book", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class)) }),
+  		@ApiResponse(responseCode = "200", description = "Found the book", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Producto.class)) }),
   		@ApiResponse(responseCode = "400", description = "Invalid id supplied", content = @Content), 
   		@ApiResponse(responseCode = "404", description = "Book not found", content = @Content) } )
  
@@ -85,7 +85,7 @@ public class ProductoREST {
 	}
 	@Operation(summary = "Get product")
 	@ApiResponses(value = { 
-  		@ApiResponse(responseCode = "200", description = "Found the book", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class)) }),
+  		@ApiResponse(responseCode = "200", description = "Found the book", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Producto.class)) }),
   		@ApiResponse(responseCode = "400", description = "Invalid id supplied", content = @Content), 
   		@ApiResponse(responseCode = "404", description = "Book not found", content = @Content) } )
  	
@@ -96,7 +96,7 @@ public class ProductoREST {
 
 	@Operation(summary = "put product")
 	@ApiResponses(value = { 
-  		@ApiResponse(responseCode = "200", description = "Found the book", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class)) }),
+  		@ApiResponse(responseCode = "200", description = "Found the book", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Producto.class)) }),
   		@ApiResponse(responseCode = "400", description = "Invalid id supplied", content = @Content), 
   		@ApiResponse(responseCode = "404", description = "Book not found", content = @Content) } )
  
@@ -109,7 +109,6 @@ public class ProductoREST {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
-	
 	
 
 }
