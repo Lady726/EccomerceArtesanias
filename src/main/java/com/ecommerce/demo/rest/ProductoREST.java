@@ -20,34 +20,54 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecommerce.demo.model.Producto;
 import com.ecommerce.demo.service.ProductoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 
 @RestController
 @RequestMapping ("/api/producto/")
-
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductoREST {
 	
 	@Autowired
 	private ProductoService productoService;
 	
+	@Operation(summary = "Get a book by its id")
+	@ApiResponses(value = { 
+  		@ApiResponse(responseCode = "200", description = "Found the book", 
+   		 content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class)) }),
+  	@ApiResponse(responseCode = "400", description = "Invalid id supplied", content = @Content), 
+  	@ApiResponse(responseCode = "404", description = "Book not found", content = @Content) })
 	@PostMapping
-    private ResponseEntity<Producto> guardar(@RequestBody Producto producto) {
-        if (producto == null) {
-            // Si el producto es null, devuelve un BAD_REQUEST
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
-        Producto temporal = productoService.create(producto);
-
-        try {
-            return ResponseEntity.created(new URI("/api/producto" + temporal.getId())).body(temporal);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }
-
+	private ResponseEntity<Producto> guardar (@RequestBody Producto producto){
+		Producto temporal = productoService.create(producto);
+		
+		try {
+			// Devuelve una respuesta con estado 201 (CREATED) y la URI del recurso creado
+			return ResponseEntity.created(new URI("/api/producto"+temporal.getId())).body(temporal);
+			
+		}catch (Exception e) {
+			// Si hay una excepción, devuelve una respuesta con estado 400 (BAD_REQUEST)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
 	
-	
+
+	@Operation(summary = "Get a book by its id")
+	@ApiResponses(value = { 
+  		@ApiResponse(responseCode = "200", description = "Found the book", 
+    		content = { @Content(mediaType = "application/json", 
+      				schema = @Schema(implementation = Book.class)) }),
+  		@ApiResponse(responseCode = "400", description = "Invalid id supplied", 
+    		content = @Content), 
+  		@ApiResponse(responseCode = "404", description = "Book not found", 
+    			content = @Content) })
+
+
 	@GetMapping
 	private ResponseEntity<List<Producto>> listarTodosLosProductos (){
 		return ResponseEntity.ok(productoService.getAllProducto());

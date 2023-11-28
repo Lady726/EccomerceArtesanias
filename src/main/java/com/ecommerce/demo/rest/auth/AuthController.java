@@ -14,6 +14,9 @@ import com.ecommerce.demo.service.auth.LoginUserService;
 import com.ecommerce.demo.service.auth.RegisterUserService;
 import com.ecommerce.demo.service.auth.UserRegisterDto;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,60 +34,60 @@ public class AuthController {
   LoginUserService loginUserService;
   @Autowired
   private EmailService emailService;
-
+  @Operation(summary = "Get all foos")
+    @ApiResponses(value = [ApiResponse(responseCode = "200", description = "Found Foos", content = [ (Content(mediaType = "application/json", array = (
+                ArraySchema(schema = Schema(implementation = Foo::class))
+                )))]),
+	ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
+	ApiResponse(responseCode = "404", description = "Did not find any Foos", content = [Content()])]
+    )
   @PostMapping("/login")
   public ResponseEntity<?> loginUser(@RequestBody LoginUserDto loginUserDto) {
-      log.info("Login with JWT");
-  
-      // Validación de campos nulos o vacíos
-      if (loginUserDto == null ||
-          loginUserDto.getEmail() == null || loginUserDto.getEmail().trim().isEmpty() ||
-          loginUserDto.getPassword() == null || loginUserDto.getPassword().trim().isEmpty()
-      ) {
-          return new ResponseEntity<>("Datos de inicio de sesión inválidos", HttpStatus.BAD_REQUEST);
-      }
-  
-      var response = loginUserService.doLogin(loginUserDto);
-  
-      JWTResponseApiDto responseJWT = new JWTResponseApiDto();
-  
-      if (response.getStatus() == HttpStatus.CREATED) {
-          responseJWT.setMessage("token");
-          responseJWT.setToken(response.getData().get(0).toString());
-      } else {
-          responseJWT.setMessage("User No valid");
-          responseJWT.setToken("---");
-      }
-  
-      return new ResponseEntity<>(responseJWT, response.getStatus());
+
+    log.info("Login with JWT");
+
+    var response = loginUserService.doLogin(loginUserDto);
+
+    // Creación de un objeto DTO de respuesta para el token JWT y el mensaje
+    JWTResponseApiDto responseJWT = new JWTResponseApiDto();
+
+    // Comprobación del estado de la respuesta y configuración de los datos de
+    // respuesta
+    if (response.getStatus() == HttpStatus.CREATED) {
+      responseJWT.setMessage("token");
+      responseJWT.setToken(response.getData().get(0).toString());
+    } else {
+      responseJWT.setMessage("User No valid");
+      responseJWT.setToken("---");
+    }
+
+    return new ResponseEntity<>(responseJWT, response.getStatus());
+
   }
-  
 
   @PostMapping("/register")
   public ResponseEntity<?> registerUser(@RequestBody UserRegisterDto userRegisterDto) {
-      log.info("Register with JWT");
-  
-      // Validación de campos nulos o vacíos
-      if (userRegisterDto == null ||
-          userRegisterDto.getEmail() == null || userRegisterDto.getEmail().trim().isEmpty() ||
-          userRegisterDto.getPassword() == null || userRegisterDto.getPassword().trim().isEmpty() // Asegúrate de que todos los campos requeridos sean validados
-      ) {
-          return new ResponseEntity<>("Datos de registro inválidos", HttpStatus.BAD_REQUEST);
-      }
-  
-      var response = serviceRegister.createUser(userRegisterDto);
-      return new ResponseEntity<>(response, response.getStatus());
+
+    // Registro de información utilizando el logger
+    log.info("Register with JWT");
+
+    var response = serviceRegister.createUser(userRegisterDto);
+
+    // Devolución de una respuesta con los datos de respuesta y el estado HTTP
+    // correspondiente
+    return new ResponseEntity<>(response, response.getStatus());
+
   }
-  
 
   @PostMapping("/request-password-reset")
   public ResponseEntity<?> requestPasswordReset(@RequestBody PasswordResetRequestDto requestDto) {
     // Aquí debes generar un token y guardarlo con una relación al usuario
-    String token = "abcdfghaijklmen"; // Reemplaza con tu lógica de generación de token
+    String token = "token_generado"; // Reemplaza con tu lógica de generación de token
 
     // Enviar correo electrónico
     emailService.sendPasswordResetEmail(requestDto.getEmail(), token);
 
     return ResponseEntity.ok("Correo de cambio de contraseña enviado.");
   }
+  
 }
