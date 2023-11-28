@@ -14,8 +14,6 @@ import com.ecommerce.demo.service.auth.LoginUserService;
 import com.ecommerce.demo.service.auth.RegisterUserService;
 import com.ecommerce.demo.service.auth.UserRegisterDto;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -34,13 +32,6 @@ public class AuthController {
   LoginUserService loginUserService;
   @Autowired
   private EmailService emailService;
-  @Operation(summary = "Get all foos")
-    @ApiResponses(value = [ApiResponse(responseCode = "200", description = "Found Foos", content = [ (Content(mediaType = "application/json", array = (
-                ArraySchema(schema = Schema(implementation = Foo::class))
-                )))]),
-	ApiResponse(responseCode = "400", description = "Bad request", content = [Content()]),
-	ApiResponse(responseCode = "404", description = "Did not find any Foos", content = [Content()])]
-    )
   @PostMapping("/login")
   public ResponseEntity<?> loginUser(@RequestBody LoginUserDto loginUserDto) {
 
@@ -64,7 +55,6 @@ public class AuthController {
     return new ResponseEntity<>(responseJWT, response.getStatus());
 
   }
-
   @PostMapping("/register")
   public ResponseEntity<?> registerUser(@RequestBody UserRegisterDto userRegisterDto) {
 
@@ -78,7 +68,6 @@ public class AuthController {
     return new ResponseEntity<>(response, response.getStatus());
 
   }
-
   @PostMapping("/request-password-reset")
   public ResponseEntity<?> requestPasswordReset(@RequestBody PasswordResetRequestDto requestDto) {
     // Aquí debes generar un token y guardarlo con una relación al usuario
